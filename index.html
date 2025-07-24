@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision Construções - Bem-vindo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #e3f2fd, #bbdefb);
+  background-size: 400% 400%;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+.navbar {
+  background:  linear-gradient(to right, #3a6073, #16222a);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  border-bottom: 2px solid #ddd;
+}
+
+.logo-img {
+  height: 50px;
+}
+
+.logo-nome-link {
+  color: #d90000;
+  font-weight: bold;
+  font-size: 22px;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 2px solid #d90000;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.logo-nome-link:hover {
+  background-color: #d90000;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 80vh;
+  padding: 40px 60px;
+  gap: 40px;
+  background-color:#e9eef3;
+
+}
+
+.texto-esquerdo {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+h1#bemvindo-texto {
+  font-size: 36px;
+  color: #d90000;
+  font-weight: 900;
+}
+
+.barras-coloridas {
+  display: flex;
+  gap: 10px;
+  width: 180px;
+}
+
+.barra {
+  height: 8px;
+  flex: 1;
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+}
+
+.vermelho { background-color: #d90000; }
+.azulceu { background-color: #87ceeb; }
+.branco { background-color: #ffffff; border: 1px solid #ccc; }
+
+.apresentacao {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.contatos {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contato {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+
+.contato i {
+  font-size: 20px;
+}
+
+.contato:hover {
+  color: #d90000;
+}
+
+.informacoes-loja {
+  font-size: 15px;
+  color: #444;
+}
+
+.informacoes-loja a {
+  color: #0047ab;
+  text-decoration: underline;
+}
+
+.imagem-direito {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagem-triangulo {
+  width: 100%;
+  max-width: 450px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 8px solid transparent;
+  border-image: linear-gradient(to bottom, #d90000, #87ceeb, #ffffff);
+  border-image-slice: 1;
+}
+
+.imagem-triangulo img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.imagem-triangulo img:hover {
+  transform: scale(1.05);
+}
+
+.btn-flutuante-whatsapp {
+  position: fixed;
+  bottom: 5px;
+  right: 10px;
+  background: #25d366;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.btn-pedido-fixo {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #d90000;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  padding: 15px;
+  display: none;
+  z-index: 999;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .btn-pedido-fixo { display: block; }
+}
+
+.avaliacoes {
+  padding: 40px;
+  background: #f8f8f8;
+  border-top: 1px solid #ccc;
+}
+
+.avaliacoes h2 {
+  text-align: center;
+  color: #d90000;
+  margin-bottom: 20px;
+}
+
+#abrir-formulario-comentario {
+  cursor: pointer;
+  color: #d90000;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+  user-select: none;
+}
+
+.form-avaliacao {
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: none;
+}
+
+.form-avaliacao input, .form-avaliacao textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-avaliacao .estrelas i {
+  color: #ccc;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.form-avaliacao .estrelas i.selecionada {
+  color: gold;
+}
+
+.form-avaliacao button {
+  background: #d90000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.avaliacao-item {
+  background: white;
+  padding: 20px;
+  margin: 10px auto;
+  max-width: 700px;
+  border-left: 5px solid #87ceeb;
+}
+
+.avaliacao-item strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+footer.footer {
+  background-color: #65acc8;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #25282a;
+  border-top: 1px solid #ccc;
+}
+
+.redes-sociais {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.redes-sociais a {
+  color: #202020;
+  font-size: 20px;
+  transition: color 0.3s;
+}
+
+.redes-sociais a:hover {
+  color: #d90000;
+}
+
+.idioma-switch {
+  position: fixed;
+  top: 70px;
+  left: 20px;
+  background-color: #d90000;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 12px 22px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(217,0,0,0.6);
+  user-select: none;
+  z-index: 2000;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.idioma-switch:hover {
+  background-color: #a70000;
+  transform: scale(1.05);
+}
+
+.menu-mobile {
+  display: none;
+  flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+
+.menu-mobile a, .menu-mobile .btn-pedido-fixo {
+  padding: 10px;
+  text-align: left;
+  color: #d90000;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+}
+
+.menu-mobile .btn-pedido-fixo {
+  border: none;
+  text-align: center;
+  background: #d90000;
+  color: white;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.menu-links {
+  display: flex;
+  gap: 20px;
+}
+
+.imagem-triangulo img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagem-triangulo img:hover {
+  transform: scale(1.07) translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+}
+
+.logo-nome-link {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.logo-nome-link:hover {
+  transform: scale(1.05);
+}
+
+.contato i, .redes-sociais a i {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.contato:hover i, .redes-sociais a:hover i {
+  color: #d90000;
+  transform: scale(1.2);
+}
+
+/* Oculta o menu no mobile por padrão */
+@media (max-width: 768px) {
+  .menu-links {
+    display: none;
+    flex-direction: column;
+    background: white;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    z-index: 999;
+  }
+
+  .menu-links.show {
+    display: flex !important;
+  }
+
+  .hamburguer {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #d90000;
+    cursor: pointer;
+  }
+}
+
+/* Exibe o hambúrguer em telas menores que 768px */
+@media (max-width: 768px) {
+  #btnHamburguer {
+    display: block;
+    cursor: pointer;
+  }
+  
+  #menuLinks {
+    display: none; /* Esconde menu até o hambúrguer ser clicado */
+    flex-direction: column;
+  }
+  
+  #menuLinks.show {
+    display: flex; /* Exibe menu quando toggled */
+  }
+}
+/* Esconde o hambúrguer em telas maiores que 768px */
+@media (min-width: 769px) {
+  #btnHamburguer {
+    display: none;
+  }
+  
+  #menuLinks {
+    display: flex !important; /* Força o menu visível em desktop */
+  }
+}
+
+.login-icon {
+  color: #e70909;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-decoration: none; /* remove underline */
+}
+
+.login-icon:hover {
+  color: #ff4b2b;
+  transform: scale(1.2);
+}
+
+.login-icon:active {
+  transform: scale(1.1);
+}
+
+
+</style>
+</head>
+<body>
+  <div class="idioma-switch" onclick="alternarIdioma()">EN</div>
+
+<header class="navbar">
+  <img src="luata.jpg" alt="Logo" class="logo-img" />
+ <!-- Botão hamburguer para telas pequenas -->
+<button id="btnHamburguer" class="hamburguer">
+  <i class="fas fa-bars"></i>
+</button>
+<!-- Menu de navegação -->
+<nav class="menu-links" id="menuLinks">
+  <a href="ferragem.html" class="logo-nome-link" id="link-materiais">Materiais Disponíveis</a>      
+</nav>
+  <a href="login.php" class="login-icon" aria-label="Login">
+    <i class="fas fa-user"></i>
+  </a>
+</header>
+
+  <main class="container">
+    <section class="texto-esquerdo">
+      <h1 id="bemvindo-texto">Bem-vindo à Vision Construções</h1>
+      <div class="barras-coloridas">
+        <div class="barra vermelho"></div>
+        <div class="barra azulceu"></div>
+        <div class="barra branco"></div>
+      </div>
+
+  <p id="apresentacao-texto" class="apresentacao">
+  A <strong>Vision Construções</strong> é especializada na <strong>venda de materiais de construção</strong> e também <strong>aluga equipamentos</strong> como Chapas,Vigores,Prumos, Andaimes e mais. <br><br>
+  Garantimos qualidade, segurança e pontualidade em cada serviço. 👷‍♂️🏗️ <br><br>
+  <strong>Além da venda</strong>, alugamos os equipamentos que você precisa. Para alugar, clique no botão <strong style="color: #d90000;">🔧 Aluguer de Equipamentos</strong> no topo da página e fale conosco direto no WhatsApp!
+</p>
+
+      
+      <h2 id="fale-conosco">Fale Conosco:</h2>
+      <div class="contatos">
+        <div class="contato" id="telefone" title="Telefone">
+          <i class="fas fa-phone"></i> 
+          <div style="display: flex; flex-direction: column; gap: 5px; margin-left: 8px;">
+            <a href="tel:+258877743076" style="color: inherit; text-decoration: none;">+258 877 743 076</a>
+            <a href="tel:+258847743076" style="color: inherit; text-decoration: none;">+258 847 743 076</a>
+          </div>
+        </div>
+        
+        <a href="https://wa.me/258847283376" target="_blank" class="contato" id="whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="mailto:exemplo@gmail.com" class="contato" id="email"><i class="fas fa-envelope"></i> Email</a>
+      </div>
+      <div class="informacoes-loja">
+        <p><a href="https://maps.google.com/?q=Machava+Km15+Matola" target="_blank" id="link-maps">Encontre-nos no Google Maps</a></p>
+        <p><strong id="proprietario-texto">Proprietário:</strong> João da Silva</p>
+      </div>
+    </section>
+
+    <section class="imagem-direito">
+      <div class="imagem-triangulo">
+        <img src="luata.jpg" alt="Materiais de Construção" />
+      </div>
+    </section>
+  </main>
+
+  <section class="avaliacoes">
+    <h2 id="titulo-avaliacoes">Comentários e Avaliações dos Clientes</h2>
+
+    <div id="abrir-formulario-comentario">Clique aqui para deixar seu comentário e avaliação ★</div>
+
+    <form class="form-avaliacao" onsubmit="enviarAvaliacao(event)">
+      <input type="text" id="nomeCliente" placeholder="Seu nome" required />
+      <textarea id="comentarioCliente" rows="4" placeholder="Escreva seu comentário" required></textarea>
+      <div class="estrelas" id="estrelas">
+        <i class="fas fa-star" data-index="1"></i>
+        <i class="fas fa-star" data-index="2"></i>
+        <i class="fas fa-star" data-index="3"></i>
+        <i class="fas fa-star" data-index="4"></i>
+        <i class="fas fa-star" data-index="5"></i>
+      </div>
+      <button type="submit" id="botao-enviar">Enviar Avaliação</button>
+    </form>
+
+    <div id="avaliacoes-lista"></div>
+  </section>
+
+  <button class="btn-flutuante-whatsapp" onclick="abrirWhatsApp()" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </button>
+
+  <div class="btn-pedido-fixo" id="botao-pedido" onclick="gerarReciboPDF()">Gerar Recibo PDF</div>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <p>© 2025 Vision Construções - Criado pela empresa T&T</p>
+    <div class="redes-sociais">
+      <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    const textos = {
+      PT: {
+        bemvindoTexto: "Bem-vindo à Vision Construções",
+        apresentacaoTexto: "A <strong>Vision Construções</strong> é especializada na venda de materiais de construção e aluguer de equipamentos. Comprometida com qualidade, segurança e pontualidade. 👷‍♂️🏗️",
+        faleConosco: "Fale Conosco:",
+        telefone: "Telefone",
+        whatsapp: "WhatsApp",
+        email: "Email",
+        abrirFormularioComentario: "Clique aqui para deixar seu comentário e avaliação ★",
+        botaoPedido: "Fazer Pedido",
+        tituloAvaliacoes: "Comentários e Avaliações dos Clientes",
+        linkMateriais: "Materiais Disponíveis",
+        linkMaps: "Encontre-nos no Google Maps",
+        proprietarioTexto: "Proprietário:",
+        botaoEnviar: "Enviar Avaliação"
+      },
+      EN: {
+        bemvindoTexto: "Welcome to Vision Construções",
+        apresentacaoTexto: "Vision Construções specializes in selling construction materials and equipment rentals. Committed to quality, safety, and punctuality. 👷‍♂️🏗️",
+        faleConosco: "Contact Us:",
+        telefone: "Phone",
+        whatsapp: "WhatsApp",
+        email: "Email",
+        abrirFormularioComentario: "Click here to leave your comment and rating ★",
+        botaoPedido: "Place Order",
+        tituloAvaliacoes: "Customer Comments and Reviews",
+        linkMateriais: "Available Materials",
+        linkMaps: "Find us on Google Maps",
+        proprietarioTexto: "Owner:",
+        botaoEnviar: "Submit Review"
+      }
+    };
+  
+    function abrirWhatsApp() {
+      window.open("https://wa.me/258877743076", "_blank");
+    }
+  
+    function gerarReciboPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text("Recibo da Encomenda", 20, 20);
+      doc.text("Produto 1: Betoneira", 20, 30);
+      doc.text("Total: 1.000 MZN", 20, 40);
+      doc.save("recibo.pdf");
+    }
+  
+    // Controle das estrelas
+    let estrelasSelecionadas = 0;
+    const estrelas = document.querySelectorAll('#estrelas i');
+    estrelas.forEach(star => {
+      star.addEventListener('click', () => {
+        estrelasSelecionadas = parseInt(star.dataset.index);
+        atualizarEstrelas(estrelasSelecionadas);
+      });
+    });
+  
+    function atualizarEstrelas(index) {
+      estrelas.forEach(star => {
+        star.classList.toggle('selecionada', parseInt(star.dataset.index) <= index);
+      });
+    }
+  
+    // Mostrar e esconder formulário de comentário
+    const abrirFormularioBtn = document.getElementById('abrir-formulario-comentario');
+    const formulario = document.querySelector('.form-avaliacao');
+  
+    abrirFormularioBtn.addEventListener('click', () => {
+      abrirFormularioBtn.style.display = 'none';
+      formulario.style.display = 'block';
+    });
+  
+    // Enviar avaliação
+    function enviarAvaliacao(e) {
+      e.preventDefault();
+  
+      const nome = document.getElementById('nomeCliente').value.trim();
+      const comentario = document.getElementById('comentarioCliente').value.trim();
+  
+      if (!nome || !comentario || estrelasSelecionadas === 0) {
+        alert('Por favor, preencha seu nome, comentário e selecione a quantidade de estrelas.');
+        return;
+      }
+  
+      const estrelasTexto = '★'.repeat(estrelasSelecionadas) + '☆'.repeat(5 - estrelasSelecionadas);
+  
+      const div = document.createElement('div');
+      div.classList.add('avaliacao-item');
+      div.innerHTML = `<strong>${nome}</strong><p>${comentario}</p><p>${estrelasTexto}</p>`;
+  
+      const listaAvaliacoes = document.getElementById('avaliacoes-lista');
+      listaAvaliacoes.prepend(div);
+  
+      formulario.reset();
+      atualizarEstrelas(0);
+      estrelasSelecionadas = 0;
+  
+      formulario.style.display = 'none';
+      abrirFormularioBtn.style.display = 'block';
+    }
+  
+    // Troca de idioma
+    function alternarIdioma() {
+      const btn = document.querySelector('.idioma-switch');
+      const langAtual = btn.innerText;
+      const novoLang = langAtual === 'EN' ? 'PT' : 'EN';
+      btn.innerText = novoLang;
+  
+      const t = textos[novoLang];
+  
+      document.getElementById("bemvindo-texto").innerHTML = t.bemvindoTexto;
+      document.getElementById("apresentacao-texto").innerHTML = t.apresentacaoTexto;
+      document.getElementById("fale-conosco").innerText = t.faleConosco;
+      document.getElementById("telefone").innerHTML = `<i class="fas fa-phone"></i> ${t.telefone}`;
+      document.getElementById("whatsapp").innerHTML = `<i class="fab fa-whatsapp"></i> ${t.whatsapp}`;
+      document.getElementById("email").innerHTML = `<i class="fas fa-envelope"></i> ${t.email}`;
+      document.getElementById("abrir-formulario-comentario").innerText = t.abrirFormularioComentario;
+      document.getElementById("botao-pedido").innerText = t.botaoPedido;
+      document.getElementById("titulo-avaliacoes").innerText = t.tituloAvaliacoes;
+      document.getElementById("link-materiais").innerText = t.linkMateriais;
+      document.getElementById("link-maps").innerText = t.linkMaps;
+      document.getElementById("proprietario-texto").innerText = t.proprietarioTexto;
+      document.getElementById("botao-enviar").innerText = t.botaoEnviar;
+    }
+    
+  // Equipamentos disponíveis
+  const equipamentos = [
+    { nome: "Betoneira", preco: "1.000 MZN/dia", icone: "fa-solid fa-truck-pickup" },
+    { nome: "Andaime", preco: "300 MZN/dia", icone: "fa-solid fa-city" },
+    { nome: "Vibrador de Concreto", preco: "800 MZN/dia", icone: "fa-solid fa-bolt" },
+    { nome: "Compactador", preco: "1.200 MZN/dia", icone: "fa-solid fa-road" },
+    { nome: "Cortadora de Piso", preco: "1.500 MZN/dia", icone: "fa-solid fa-scissors" }
+  ];
+
+  // Modal HTML
+  const modal = document.createElement('div');
+  modal.id = "modalAluguel";
+  modal.style.display = "none";
+  modal.innerHTML = `
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0,0,0,0.6); display: flex; justify-content: center; 
+                align-items: center; z-index: 9999;">
+      <div style="background: white; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%; box-shadow: 0 0 15px rgba(0,0,0,0.3);">
+        <h2 style="color: #d90000; font-size: 24px; margin-bottom: 20px; text-align: center;">Selecione os Equipamentos que Deseja Alugar</h2>
+        <div id="listaEquipamentos" style="margin-bottom: 25px;"></div>
+        <button onclick="enviarParaWhatsApp()" 
+                style="background: #25d366; color: white; padding: 12px 20px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; width: 100%; margin-bottom: 10px;">
+          📲 Falar no WhatsApp para Alugar
+        </button>
+        <button onclick="fecharModal()" 
+                style="background: #ccc; padding: 10px 20px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; width: 100%;">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  function abrirModalAluguel(e) {
+    e.preventDefault();
+    const lista = document.getElementById('listaEquipamentos');
+    lista.innerHTML = equipamentos.map((item, i) => `
+      <label style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+        <input type="checkbox" value="${item.nome}" data-preco="${item.preco}" style="margin-right: 12px; width: 18px; height: 18px;" />
+        <i class="${item.icone}" style="font-size: 22px; color: #87ceeb; width: 30px;"></i>
+        <div style="margin-left: 10px;">
+          <strong style="color: #333;">${item.nome}</strong><br>
+          <span style="font-size: 14px; color: #666;">${item.preco}</span>
+        </div>
+      </label>
+    `).join('');
+    modal.style.display = "flex";
+  }
+  
+
+  function fecharModal() {
+    modal.style.display = "none";
+  }
+
+  function enviarParaWhatsApp() {
+  const selecionados = document.querySelectorAll('#listaEquipamentos input[name="equipamento"]:checked');
+
+  if (selecionados.length === 0) {
+    alert("Selecione pelo menos um equipamento para alugar.");
+    return;
+  }
+
+  let mensagem = "🔧 *Pedido de Aluguer de Equipamentos*\n\n";
+  let total = 0;
+
+  selecionados.forEach(cb => {
+    const nome = cb.value;
+    const precoTexto = cb.dataset.preco;
+    const precoNum = parseFloat(precoTexto.replace(/[^\d.,]/g, '').replace(',', '.'));
+    total += precoNum;
+
+    mensagem += `• ${nome} — _${precoTexto}_\n`;
+  });
+
+  // Obter data e hora atual formatada
+  const agora = new Date();
+  const dia = agora.getDate().toString().padStart(2, '0');
+  const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
+  const ano = agora.getFullYear();
+  const horas = agora.getHours().toString().padStart(2, '0');
+  const minutos = agora.getMinutes().toString().padStart(2, '0');
+  const dataHora = `${dia}/${mes}/${ano} às ${horas}:${minutos}`;
+
+  mensagem += `\n🧾 *Total a pagar:* _${total.toFixed(2)} MZN/dia_`;
+  mensagem += `\n📆 *Data do Pedido:* ${dataHora}`;
+  mensagem += `\n\n📍 Aluguer feito através do site *Vision Construções*`;
+  mensagem += `\n⏳ Estamos à disposição para combinar a entrega.`;
+
+  const url = `https://wa.me/258877743076?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, "_blank");
+  fecharModal();
+}
+document.querySelectorAll('#listaEquipamentos input[name="equipamento"]:checked')
+
+
+  // Atualiza total no modal
+  function atualizarTotal() {
+    const selecionados = document.querySelectorAll('#listaEquipamentos input:checked');
+    let total = 0;
+    selecionados.forEach(cb => {
+      const preco = parseInt(cb.dataset.preco.replace(/[^\d]/g, ''));
+      total += isNaN(preco) ? 0 : preco;
+    });
+
+    let totalEl = document.getElementById('totalAluguel');
+    if (!totalEl) {
+      totalEl = document.createElement('div');
+      totalEl.id = 'totalAluguel';
+      totalEl.style = 'text-align:center; font-size:18px; font-weight:bold; margin-top:10px; color:#333;';
+      document.querySelector('#listaEquipamentos').insertAdjacentElement('afterend', totalEl);
+    }
+    totalEl.innerText = `Total: ${total.toLocaleString()} MZN`;
+  }
+
+  // Altera a função abrirModalAluguel
+function abrirModalAluguel(e) {
+  e.preventDefault();
+  const lista = document.getElementById('listaEquipamentos');
+  lista.innerHTML = `
+    <div style="margin-bottom: 20px;">
+      <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #d90000;">Seu nome:</label>
+      <input type="text" id="nomeClienteAluguel" placeholder="Digite seu nome" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;" required />
+    </div>
+    <div style="margin-bottom: 20px;">
+      <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #d90000;">Seu telefone:</label>
+      <input type="tel" id="telefoneClienteAluguel" placeholder="Digite seu telefone" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;" required />
+    </div>
+  ` + equipamentos.map((item, i) => `
+    <label style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; gap: 10px;">
+      <input type="checkbox" name="equipamento" value="${item.nome}" data-preco="${item.preco}" style="width: 18px; height: 18px;" />
+      <i class="${item.icone}" style="font-size: 22px; color: #87ceeb; width: 30px;"></i>
+      <div style="flex: 1;">
+        <strong style="color: #333;">${item.nome}</strong><br>
+        <span style="font-size: 14px; color: #666;">${item.preco}</span>
+      </div>
+      <input type="number" name="dias" min="1" value="1" style="width: 60px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;" title="Dias para alugar" />
+    </label>
+  `).join('');
+  modal.style.display = "flex";
+}
+
+function enviarParaWhatsApp() {
+  const nomeCliente = document.getElementById('nomeClienteAluguel').value.trim();
+  const telefoneCliente = document.getElementById('telefoneClienteAluguel').value.trim();
+
+  if (!nomeCliente) {
+    alert("Por favor, digite seu nome.");
+    return;
+  }
+  if (!telefoneCliente) {
+    alert("Por favor, digite seu telefone.");
+    return;
+  }
+
+  const selecionados = document.querySelectorAll('#listaEquipamentos input[name="equipamento"]:checked');
+  if (selecionados.length === 0) {
+    alert("Selecione pelo menos um equipamento para alugar.");
+    return;
+  }
+
+  let mensagem = `Olá! Meu nome é ${nomeCliente}.\nTelefone: ${telefoneCliente}\n\nGostaria de alugar os seguintes equipamentos:\n\n`;
+  let totalGeral = 0;
+
+  selecionados.forEach(cb => {
+    const label = cb.parentElement;
+    const nome = cb.value;
+    const precoStr = cb.dataset.preco; // ex: "1.000 MZN/dia"
+    const precoNum = Number(precoStr.replace(/\D/g, '')); // extrai número só (ex: 1000)
+
+    const inputDias = label.querySelector('input[name="dias"]');
+    let dias = parseInt(inputDias.value);
+    if (isNaN(dias) || dias < 1) dias = 1;
+
+    const subtotal = precoNum * dias;
+    totalGeral += subtotal;
+
+    mensagem += `• ${nome} - ${dias} dia(s) x ${precoNum.toLocaleString()} MZN = ${subtotal.toLocaleString()} MZN\n`;
+  });
+
+  const dataHora = new Date().toLocaleString('pt-BR');
+
+  mensagem += `\nTotal geral: ${totalGeral.toLocaleString()} MZN\n`;
+  mensagem += `Data e hora do pedido: ${dataHora}`;
+
+  const url = `https://wa.me/258877743076?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, "_blank");
+  fecharModal();
+}
+
+
+function enviarParaWhatsApp() {
+  const nomeCliente = document.getElementById('nomeClienteAluguel').value.trim();
+  const telefoneCliente = document.getElementById('telefoneClienteAluguel').value.trim();
+
+  if (!nomeCliente) {
+    alert("Por favor, digite seu nome.");
+    return;
+  }
+  if (!telefoneCliente) {
+    alert("Por favor, digite seu telefone.");
+    return;
+  }
+
+  const selecionados = document.querySelectorAll('#listaEquipamentos input[name="equipamento"]:checked');
+  if (selecionados.length === 0) {
+    alert("Selecione pelo menos um equipamento para alugar.");
+    return;
+  }
+
+  let mensagem = `Olá! Meu nome é ${nomeCliente}.\nTelefone: ${telefoneCliente}\n\nGostaria de alugar os seguintes equipamentos:\n\n`;
+  let totalGeral = 0;
+
+  selecionados.forEach(cb => {
+    const label = cb.parentElement;
+    const nome = cb.value;
+    const precoStr = cb.dataset.preco; // exemplo "1.000 MZN/dia"
+    const precoNum = Number(precoStr.replace(/\D/g, '')); // extrai número só (ex: 1000)
+
+    // Pega o input do número de dias no mesmo label
+    const inputDias = label.querySelector('input[name="dias"]');
+    let dias = parseInt(inputDias.value);
+    if (isNaN(dias) || dias < 1) dias = 1;
+
+    const subtotal = precoNum * dias;
+    totalGeral += subtotal;
+
+    mensagem += `• ${nome} - ${dias} dia(s) x ${precoNum.toLocaleString()} MZN = ${subtotal.toLocaleString()} MZN\n`;
+  });
+
+  // Data e hora atual formatada
+  const dataHora = new Date().toLocaleString('pt-BR');
+
+  mensagem += `\nTotal geral: ${totalGeral.toLocaleString()} MZN\n`;
+  mensagem += `Data e hora do pedido: ${dataHora}`;
+
+  const url = `https://wa.me/258877743076?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, "_blank");
+  fecharModal();
+}
+  // Histórico em localStorage e geração do PDF
+  function gerarReciboPDF() {
+    const nomeCliente = prompt("Digite seu nome para registrar o pedido:");
+    if (!nomeCliente) return;
+
+    const data = new Date().toLocaleString();
+    const nomeDono = "João da Silva";
+
+    const produtosPedido = ["", ""]; // aqui você pode puxar os produtos reais
+    const novoPedido = { data, nomeCliente, nomeDono, produtos: produtosPedido };
+
+    const historico = JSON.parse(localStorage.getItem('historicoPedidos') || "[]");
+    historico.push(novoPedido);
+    localStorage.setItem('historicoPedidos', JSON.stringify(historico));
+
+    // Gera o conteúdo do PDF
+    let conteudo = "📋 Histórico de Encomendas\n\n";
+    historico.forEach((pedido, i) => {
+      conteudo += `#${i + 1} - ${pedido.data}\nCliente: ${pedido.nomeCliente}\nDono: ${pedido.nomeDono}\nProdutos: ${pedido.produtos.join(', ')}\n\n`;
+    });
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const linhas = conteudo.split("\n");
+    linhas.forEach((linha, i) => doc.text(linha, 10, 10 + i * 8));
+    doc.save("historico_pedidos.pdf");
+  }
+  
+const elementos = document.querySelectorAll('.texto-esquerdo, .imagem-direito, .avaliacoes');
+
+function mostrarElementoAoRolar() {
+  const triggerBottom = window.innerHeight * 0.85;
+
+  elementos.forEach(el => {
+    const topElemento = el.getBoundingClientRect().top;
+
+    if(topElemento < triggerBottom){
+      el.style.opacity = 1;
+      el.style.transform = 'translateY(0)';
+      el.style.transition = 'all 0.7s ease-out';
+    } else {
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(40px)';
+    }
+  });
+}
+window.addEventListener('scroll', mostrarElementoAoRolar);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btnHamburguer = document.getElementById('btnHamburguer');
+  const menuLinks = document.getElementById('menuLinks');
+
+  btnHamburguer.addEventListener('click', () => {
+    menuLinks.classList.toggle('show');
+  });
+
+  // Botão na navbar
+  const btnAluguel = document.createElement('a');
+  btnAluguel.href = "#";
+  btnAluguel.className = "logo-nome-link";
+  btnAluguel.innerText = "🔧 Aluguer de Equipamentos";
+  btnAluguel.onclick = abrirModalAluguel;
+  document.querySelector('.navbar').appendChild(btnAluguel);
+
+  menuLinks.appendChild(btnAluguel);
+});
+
+</script>
+</body>
+</html>
